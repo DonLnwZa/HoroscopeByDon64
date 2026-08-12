@@ -36,7 +36,7 @@ function App() {
                 birth_province: formData.birth_province,
                 selected_tarot_cards: selectedTarotCards
             };
-            const res = await fetch("http://localhost:5000/api/divine", {
+            const res = await fetch("/api/divine", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
