@@ -175,7 +175,7 @@ const THAI_PROVINCES = [
 
                         {/* R2 Tarot Card Deck Grid */}
                         <div className="tarot-section">
-                            <h3 className="gold-text">🃏 เลือกไพ่ทาโรต์มงคล 10 ใบ</h3>
+                            <h3 className="gold-text">🔮 เลือกไพ่ทาโรต์มงคล 10 ใบ</h3>
                             <p className="card-counter" aria-label="card-counter">
                                 เลือกไพ่แล้ว {selectedTarotCards.length} / 10 ใบ
                             </p>
