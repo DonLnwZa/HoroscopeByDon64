@@ -3,8 +3,8 @@ services:
     name: omni-oracle
     runtime: python
     rootDir: backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn main:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    buildCommand: pip install -r omni_oracle_app/backend/requirements.txt
+    startCommand: gunicorn --chdir omni_oracle_app/backend main:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0
