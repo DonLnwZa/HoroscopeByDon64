@@ -80,21 +80,21 @@ class NumberRecommender:
                 if cat == "two_digit":
                     if idx == 0:
                         origins[num_str] = [
-                            f"Mahabote: Thanang ({thanang_digit}) + Phoka ({phoka_digit})",
-                            f"Thai Astrology: Lagna Lord {ast_primary}"
+                            f"ตำราพรมชาติมหาภูติ: ฐานัง ({thanang_digit}) + โภคา ({phoka_digit})",
+                            f"โหราศาสตร์ไทย: ดาวเจ้าเรือนตนุ ({ast_primary})"
                         ]
                     else:
                         origins[num_str] = [
-                            f"Tarot Card #{card3_idx}: {card3_name}",
-                            f"Numerology 7x9: Base {base_num}"
+                            f"ไพ่ทาโรต์ใบที่ {card3_idx}: {card3_name}",
+                            f"คัมภีร์เลขศาสตร์ 7x9: ฐานเลข {base_num}"
                         ]
                 elif cat == "three_digit":
                     if idx == 0:
-                        origins[num_str] = [f"Combined: Lagna {ast_primary} + Mahabote {thanang_digit}{phoka_digit}"]
+                        origins[num_str] = [f"สูตรถอดรหัส: ดาวตนุ ({ast_primary}) + มหาภูติ ({thanang_digit}{phoka_digit})"]
                     else:
-                        origins[num_str] = [f"Tarot Card #{card1_idx}: {card1_name} + Numerology {num_str}"]
+                        origins[num_str] = [f"ไพ่ทาโรต์ใบที่ {card1_idx}: {card1_name} + เลขศาสตร์ {num_str}"]
                 else:
-                    origins[num_str] = ["Synthesis of Top Engine Predictions"]
+                    origins[num_str] = ["สังเคราะห์การคำนวณรวมจากทั้ง 4 ศาสตร์"]
 
         return origins
 

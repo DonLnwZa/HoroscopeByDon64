@@ -145,12 +145,12 @@ PROVINCE_COORDINATES: Dict[str, Tuple[float, float]] = {
 class ThaiLunarCalendarResult(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    day_of_week: str          # "Sunday".."Saturday"
+    day_of_week: str          # "วันอาทิตย์".."วันเสาร์"
     day_of_week_num: int      # 1..7 (1=Sun, 2=Mon, ..., 7=Sat)
     lunar_month: int          # 1..12
     lunar_month_name_th: str   # "เดือน 6"
-    zodiac_year: str          # "Monkey", "Rat", etc.
-    zodiac_year_th: str       # "ปีวอก", "ปีชวด", etc.
+    zodiac_year: str          # "ปีกุน (หมู)"
+    zodiac_year_th: str       # "ปีกุน (หมู)"
     zodiac_year_num: int      # 1..12 (1=Rat..12=Pig)
     cutoff_applied: bool      # True if birth_time < 06:00
 
@@ -179,8 +179,10 @@ def calculate_thai_lunar_calendar(
     if not (0 <= hour <= 23 and 0 <= minute <= 59):
         raise ValueError(f"Invalid birth_time '{birth_time}'. Time values out of range.")
 
+    birth_tm = time(hour, minute)
+
     # 6:00 AM Cutoff Rule
-    if (hour, minute) < (6, 0):
+    if birth_tm < time(6, 0):
         effective_date = dt_date - timedelta(days=1)
         cutoff_applied = True
     else:

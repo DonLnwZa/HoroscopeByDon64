@@ -51,23 +51,37 @@ function App() {
         }
     };
 
+const THAI_PROVINCES = [
+    "กรุงเทพมหานคร", "กระบี่", "กาญจนบุรี", "กาฬสินธุ์", "กำแพงเพชร", "ขอนแก่น", "จันทบุรี", "ฉะเชิงเทรา", "ชลบุรี", "ชัยนาท",
+    "ชัยภูมิ", "ชุมพร", "เชียงราย", "เชียงใหม่", "ตรัง", "ตราด", "ตาก", "นครนายก", "นครปฐม", "นครพนม",
+    "นครราชสีมา", "นครศรีธรรมราช", "นครสวรรค์", "นนทบุรี", "นราธิวาส", "น่าน", "บึงกาฬ", "บุรีรัมย์", "ปทุมธานี", "ประจวบคีรีขันธ์",
+    "ปราจีนบุรี", "ปัตตานี", "พระนครศรีอยุธยา", "พะเยา", "พังงา", "พัทลุง", "พิจิตร", "พิษณุโลก", "เพชรบุรี", "เพชรบูรณ์",
+    "แพร่", "ภูเก็ต", "มหาสารคาม", "มุกดาหาร", "แม่ฮ่องสอน", "ยโสธร", "ยะลา", "ร้อยเอ็ด", "ระนอง", "ระยอง",
+    "ราชบุรี", "ลพบุรี", "ลำปาง", "ลำพูน", "เลย", "ศรีสะเกษ", "สกลนคร", "สงขลา", "สตูล", "สมุทรปราการ",
+    "สมุทรสงคราม", "สมุทรสาคร", "สระแก้ว", "สระบุรี", "สิงห์บุรี", "สุโขทัย", "สุพรรณบุรี", "สุราษฎร์ธานี", "สุรินทร์", "หนองคาย",
+    "หนองบัวลำภู", "อ่างทอง", "อำนาจเจริญ", "อุดรธานี", "อุตรดิตถ์", "อุทัยธานี", "อุบลราชธานี"
+];
+
     const renderHeatBadge = (category, numStr) => {
         if (!results?.heat_index?.[category]) return null;
         const item = results.heat_index[category].find(h => String(h.number) === String(numStr));
         if (!item) return null;
 
         let badgeClass = "heat-badge cold";
-        let text = `❄️ หายาก (ชนะ ${item.win_count} ครั้ง)`;
+        let text = item.win_count === 0 
+            ? "❄️ เลขลุ้นบิ๊กเซอร์ไพรส์ (ยังไม่เคยออกในปีนี้)" 
+            : `❄️ ออกน้อย (สถิติตลอดปีออก ${item.win_count} ครั้ง)`;
+            
         if (item.level === "HOT") {
             badgeClass = "heat-badge hot";
-            text = `🔥 ร้อนแรง (ชนะ ${item.win_count} ครั้ง)`;
+            text = `🔥 เลขเด็ดสุดฮิต (สถิติตลอดปีออก ${item.win_count} ครั้ง)`;
         } else if (item.level === "WARM") {
             badgeClass = "heat-badge warm";
-            text = `⚡ ปานกลาง (ชนะ ${item.win_count} ครั้ง)`;
+            text = `⚡ เลขสถิติดี (สถิติตลอดปีออก ${item.win_count} ครั้ง)`;
         }
 
         return (
-            <span className={badgeClass} title={`สถิติผลหวยย้อนหลัง 1 ปี: ชนะ ${item.win_count} ครั้ง`}>
+            <span className={badgeClass} title={`สถิติหวยย้อนหลัง 1 ปี: ออกทั้งหมด ${item.win_count} ครั้ง`}>
                 {text}
             </span>
         );
@@ -78,7 +92,7 @@ function App() {
         if (!origins || origins.length === 0) return null;
         return (
             <div className="origin-tags-group">
-                <span className="origin-label">📍 ที่มา:</span>
+                <span className="origin-label">📍 ที่มาของตัวเลข:</span>
                 {origins.map((org, i) => (
                     <span key={i} className="origin-tag">
                         {org}
@@ -152,11 +166,9 @@ function App() {
                                     value={formData.birth_province}
                                     onChange={e => setFormData({...formData, birth_province: e.target.value})}
                                 >
-                                    <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
-                                    <option value="เชียงใหม่">เชียงใหม่</option>
-                                    <option value="ขอนแก่น">ขอนแก่น</option>
-                                    <option value="ภูเก็ต">ภูเก็ต</option>
-                                    <option value="ชลบุรี">ชลบุรี</option>
+                                    {THAI_PROVINCES.map((prov) => (
+                                        <option key={prov} value={prov}>{prov}</option>
+                                    ))}
                                 </select>
                             </div>
                         </div>

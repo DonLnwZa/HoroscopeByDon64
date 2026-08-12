@@ -4,7 +4,7 @@ File: omni_oracle_app/backend/tests/test_adversarial_m1.py
 """
 
 import pytest
-from app import app
+from main import app
 from app.engines.thai_astrology import calculate_thai_lunar_calendar, ThaiLunarCalendarResult
 from app.engines.tarot import TarotEngine
 
