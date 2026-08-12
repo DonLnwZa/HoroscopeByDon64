@@ -1,0 +1,424 @@
+:root {
+    --bg-color: #1a0533;
+    --text-color: #f0f0f0;
+    --accent-gold: #ffd700;
+    --accent-gold-dark: #daa520;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Noto Sans Thai', sans-serif;
+    min-height: 100vh;
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(45, 27, 105, 0.8), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(10, 22, 40, 0.8), transparent 25%);
+    background-attachment: fixed;
+}
+
+h1, h2, h3 {
+    font-family: 'Cinzel', 'Noto Sans Thai', serif;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.gold-text {
+    background: linear-gradient(to right, var(--accent-gold), var(--accent-gold-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--accent-gold-dark), var(--accent-gold));
+    color: #1a0533;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: linear-gradient(45deg, #555, #888);
+    color: #ccc;
+    box-shadow: none;
+}
+
+.app-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    margin-bottom: 0.6rem;
+    color: var(--accent-gold);
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Custom Dropdown Styling */
+.form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2em;
+    cursor: pointer;
+}
+
+.form-group select option {
+    background-color: var(--bg-color);
+    color: white;
+    padding: 10px;
+}
+
+/* Date/Time picker icon styling */
+::-webkit-calendar-picker-indicator {
+    filter: invert(1) sepia(100%) saturate(500%) hue-rotate(5deg) brightness(1.2);
+    cursor: pointer;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.lucky-numbers {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 3rem;
+    border-color: var(--accent-gold);
+    animation: glow 2s infinite alternate;
+}
+
+.number-display {
+    font-size: 4rem;
+    font-weight: bold;
+    letter-spacing: 5px;
+    margin: 1rem 0;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.2), inset 0 0 10px rgba(255, 215, 0, 0.1);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 215, 0, 0.2);
+    }
+}
+
+/* ----------------------------------------------------
+   R1 Thai Lunar Calendar Output Card
+   ---------------------------------------------------- */
+.lunar-card {
+    margin-bottom: 2rem;
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+.lunar-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.lunar-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.lunar-label {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    color: var(--text-color);
+}
+
+.lunar-val {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-gold);
+}
+
+.cutoff-note {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+/* ----------------------------------------------------
+   R2 Interactive 78 Tarot Deck Grid & Selection Counter
+   ---------------------------------------------------- */
+.tarot-section {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.card-counter {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--accent-gold);
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid var(--accent-gold-dark);
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 1.2rem;
+}
+
+.tarot-deck-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+    gap: 8px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+}
+
+.tarot-deck-grid::-webkit-scrollbar {
+    width: 6px;
+}
+.tarot-deck-grid::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+.tarot-deck-grid::-webkit-scrollbar-thumb {
+    background: var(--accent-gold-dark);
+    border-radius: 10px;
+}
+
+.tarot-card-facedown {
+    height: 75px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2a0845, #140326);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.tarot-card-facedown:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-gold);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+}
+
+.tarot-card-facedown.selected {
+    background: linear-gradient(135deg, #4a154b, #daa520);
+    border: 2px solid var(--accent-gold);
+    box-shadow: 0 0 14px rgba(255, 215, 0, 0.8);
+    transform: translateY(-2px) scale(1.05);
+}
+
+.card-order-badge {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #1a0533;
+    background: var(--accent-gold);
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-back-pattern {
+    font-size: 1.2rem;
+    opacity: 0.7;
+}
+
+/* ----------------------------------------------------
+   R3 & R4: Number Results, Heat Badges & Transparency Tags
+   ---------------------------------------------------- */
+.number-section {
+    text-align: left;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    color: var(--accent-gold);
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    padding-bottom: 0.4rem;
+}
+
+.number-cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.number-card-row {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.3s ease;
+}
+
+.number-card-row:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 215, 0, 0.4);
+}
+
+.number-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.number-value {
+    font-size: 2.4rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    line-height: 1;
+}
+
+/* R3 Heat Index Badges */
+.heat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+}
+
+.heat-badge.hot {
+    background: rgba(255, 75, 43, 0.2);
+    border: 1px solid rgba(255, 75, 43, 0.6);
+    color: #ff6b4a;
+    box-shadow: 0 0 10px rgba(255, 75, 43, 0.25);
+}
+
+.heat-badge.warm {
+    background: rgba(255, 215, 0, 0.2);
+    border: 1px solid rgba(255, 215, 0, 0.6);
+    color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.25);
+}
+
+.heat-badge.cold {
+    background: rgba(0, 191, 255, 0.15);
+    border: 1px solid rgba(0, 191, 255, 0.5);
+    color: #70d6ff;
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.2);
+}
+
+/* R4 Divination Transparency Tags */
+.origin-tags-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.origin-label {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: bold;
+}
+
+.origin-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #e0e0e0;
+    font-style: italic;
+}
