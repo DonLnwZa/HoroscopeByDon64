@@ -4,7 +4,7 @@ from flask_cors import CORS
 
 from app.engines.numerology_7x9 import calculate_numerology_7x9
 from app.engines.mahabote import calculate_mahabote
-from app.engines.thai_astrology import calculate_thai_astrology, calculate_thai_lunar_calendar
+from app.engines.thai_astrology import calculate_thai_astrology, calculate_thai_lunar_calendar, THAI_DAY_NAMES, THAI_ZODIAC_NAMES
 from app.engines.tarot import TarotEngine
 from app.engines.lottery_stats import LotteryStatsEngine
 from app.engines.number_recommender import NumberRecommender
@@ -60,10 +60,14 @@ def divine():
     # 1. Thai Lunar Calendar calculation with 6am Cutoff (R1)
     try:
         lunar_res = calculate_thai_lunar_calendar(birth_date=birth_date, birth_time=birth_time)
+        day_th = THAI_DAY_NAMES.get(lunar_res.day_of_week_num, lunar_res.day_of_week)
+        zodiac_th = THAI_ZODIAC_NAMES.get(lunar_res.zodiac_year_num, lunar_res.zodiac_year)
         lunar_info = {
             "day_of_week": lunar_res.day_of_week,
+            "day_of_week_th": day_th,
             "lunar_month": lunar_res.lunar_month,
             "zodiac_year": lunar_res.zodiac_year,
+            "zodiac_year_th": zodiac_th,
             "cutoff_applied": lunar_res.cutoff_applied
         }
     except ValueError as ve:

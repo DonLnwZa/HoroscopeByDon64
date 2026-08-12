@@ -234,7 +234,7 @@ const THAI_PROVINCES = [
                             <div className="lunar-info-grid">
                                 <div className="lunar-item">
                                     <span className="lunar-label">วันเกิดตามสัปดาห์</span>
-                                    <span className="lunar-val">{results.chart.lunar_calendar.day_of_week}</span>
+                                    <span className="lunar-val">{results.chart.lunar_calendar.day_of_week_th || results.chart.lunar_calendar.day_of_week}</span>
                                 </div>
                                 <div className="lunar-item">
                                     <span className="lunar-label">เดือนจันทรคติ</span>
@@ -242,7 +242,13 @@ const THAI_PROVINCES = [
                                 </div>
                                 <div className="lunar-item">
                                     <span className="lunar-label">ปีนักษัตร</span>
-                                    <span className="lunar-val">ปี{results.chart.lunar_calendar.zodiac_year}</span>
+                                    <span className="lunar-val">
+                                        {(() => {
+                                            const z = results.chart.lunar_calendar.zodiac_year_th || results.chart.lunar_calendar.zodiac_year;
+                                            if (!z) return "";
+                                            return z.startsWith("ปี") ? z : `ปี${z}`;
+                                        })()}
+                                    </span>
                                 </div>
                             </div>
                             <p className="cutoff-note">

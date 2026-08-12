@@ -145,11 +145,12 @@ PROVINCE_COORDINATES: Dict[str, Tuple[float, float]] = {
 class ThaiLunarCalendarResult(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    day_of_week: str          # "วันอาทิตย์".."วันเสาร์"
+    day_of_week: str          # "Sunday".."Saturday"
+    day_of_week_th: str       # "วันอาทิตย์".."วันเสาร์"
     day_of_week_num: int      # 1..7 (1=Sun, 2=Mon, ..., 7=Sat)
     lunar_month: int          # 1..12
     lunar_month_name_th: str   # "เดือน 6"
-    zodiac_year: str          # "ปีกุน (หมู)"
+    zodiac_year: str          # "Monkey", "Rat", etc.
     zodiac_year_th: str       # "ปีกุน (หมู)"
     zodiac_year_num: int      # 1..12 (1=Rat..12=Pig)
     cutoff_applied: bool      # True if birth_time < 06:00
@@ -192,6 +193,7 @@ def calculate_thai_lunar_calendar(
     # Day of week (1=Sun..7=Sat)
     day_num = ((effective_date.weekday() + 1) % 7) + 1
     day_name_en = ENGLISH_DAY_NAMES[day_num]
+    day_name_th = THAI_DAY_NAMES[day_num]
 
     # Thai Lunar Month (1..12)
     m = effective_date.month
@@ -211,6 +213,7 @@ def calculate_thai_lunar_calendar(
 
     return ThaiLunarCalendarResult(
         day_of_week=day_name_en,
+        day_of_week_th=day_name_th,
         day_of_week_num=day_num,
         lunar_month=lunar_month,
         lunar_month_name_th=lunar_month_name_th,
